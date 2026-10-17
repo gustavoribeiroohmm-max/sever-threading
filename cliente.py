@@ -4,6 +4,8 @@ import threading
 HOST = 'localhost'
 PORT = 8080
 
+nickname = input("Informe o seu nome de usuário: ")
+
 def escutar(cliente):
 
     while True:
@@ -16,7 +18,11 @@ def escutar(cliente):
             break
 
         else:
-            print(mensagem)
+            if mensagem == 'NICK':
+                cliente.send(nickname.encode('utf-8'))
+
+            else:    
+                print(mensagem)
 
 def enviar():
 
@@ -29,7 +35,6 @@ def enviar():
                 cliente.send(mensagem.encode('utf-8'))
 
             except OSError:
-                #cliente.close()
                 print("Desconectando...")
                 break
 
